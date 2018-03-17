@@ -20,8 +20,9 @@ require "logstash/plugin_mixins/aws_config"
 
 require "time"
 require "aws-sdk"
+require "logstash/outputs/patch"
 
-Aws.eager_autoload!(services: %w(CloudWatchLogs))
+Aws.eager_autoload!
 
 # This output lets you send log data to AWS CloudWatch Logs service
 #
