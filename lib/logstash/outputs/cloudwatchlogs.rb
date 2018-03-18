@@ -19,10 +19,6 @@ require "logstash/namespace"
 require "logstash/plugin_mixins/aws_config"
 
 require "time"
-require "aws-sdk"
-require "logstash/outputs/patch"
-
-Aws.eager_autoload!
 
 # This output lets you send log data to AWS CloudWatch Logs service
 #
@@ -83,6 +79,9 @@ class LogStash::Outputs::CloudWatchLogs < LogStash::Outputs::Base
 
   public
   def register
+    require "aws-sdk"
+    Aws.eager_autoload!
+    
     @cwl_cfg = Hash.new
     @logger.info("aws_options_hash #{aws_options_hash}")
     @cwl = Aws::CloudWatchLogs::Client.new(aws_options_hash)
